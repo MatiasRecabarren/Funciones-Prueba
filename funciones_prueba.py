@@ -23,33 +23,6 @@ def validar_opcion():
         except:
             print("ERROR!   La opcion debe ser un número entero")
 
-def ver_arreglo(): #Tiene como ejemplo el restaurant pero se puede cambiar nomás
-    os.system("cls")
-    print("\tVER RESTAURANT\n")
-    contador = 1
-    for x in range(3):
-        print(f"Mesas para {(x+1)*2} personas: ",end=" ")
-        for y in range(3):
-            print(f"Mesa {contador}: {restaurant[x][y]} ", end=" ")
-            contador += 1
-        print("\n")
-    time.sleep(3)
-
-def mesas_disponibles(p_cantidad):
-    contador = 1
-    lista_mesas = []
-    for x in range(3):
-        for y in range(3):
-            if restaurant[x][y] == 0:
-                if p_cantidad <= 2:
-                    lista_mesas.append(contador)
-                elif p_cantidad >=3 and p_cantidad <= 4 and x in(1,2):
-                    lista_mesas.append(contador)
-                elif p_cantidad >= 5 and p_cantidad <=6 and x == 2:
-                    lista_mesas.append(contador)
-            contador += 1
-    return lista_mesas
-
 def validar_mesa(p_mesas):
     while True:
         try:
@@ -60,24 +33,6 @@ def validar_mesa(p_mesas):
                 print("ERROR! NÚMERO DE MESA NO DISPONIBLE!")
         except:
             print("ERROR! DEBE INGRESAR UN NÚMERO ENTERO!")
-
-def reservar():
-    os.system('clear')
-    print("RESERVAR MESA\n")
-    rut = validar_rut()
-    if rut in lista_ruts:
-        print("YA TIENE UNA RESERVA!")
-        return
-
-def cancelar_reserva(): 
-    os.system('clear')
-    print("CANCELAR RESERVA\n")
-    rut = validar_rut()
-    if rut in lista_ruts:
-        posicion = lista_ruts.index(rut)
-        fila = lista_filas[posicion]
-        columna = lista_columnas[posicion]
-        restaurant[fila][columna] = 0
 
 def validar_rut():
     while True:
@@ -174,21 +129,7 @@ def validar_descuento():
                 print("ERROR! DESCUENTO DEBE SER 0 O POSITIVA!")
         except:
             print("ERROR! DEBE INGRESAR UN NÚMERO ENTERO!")
-
-def pagar():
-    os.system('clear')
-    print("PAGAR CUENTA\n")
-    rut = validar_rut()
-    if rut in lista_ruts:
-        posicion = lista_ruts.index(rut)
-        descuento = validar_descuento()
-        print(f"""BOLETA
-        SUBTOTAL   {lista_totales[posicion]}
-        IVA        {round(19/100 * lista_totales[posicion])}
-        TOTAL      {round(119/100 * lista_totales[posicion])}
-        DESCUENTO  {descuento}
-        TOTAL      {round(119/100 * lista_totales[posicion]) - descuento}""")
-    
+ 
 def calcular_iva():
     precio = validar_numero("precio")
     iva = round(precio*19/100)
@@ -210,24 +151,6 @@ def validar_numero(p_texto):
                 print(f"ERROR! EL {p_texto} DEBE SER POSITIVO!")
         except:
             print("ERROR! DEBE INGRESAR UN NÚMERO ENTERO!")
-
-def calcular_imc():
-    peso = validar_peso()
-    estatura = validar_estatura()
-    imc = round(peso/estatura**2 , 1)
-    print("Su índica de masa corporal(IMC) es:",imc)
-    if imc < 18.5:
-        print("Bajo peso")
-    elif imc >= 18.5 and imc <= 24.9:
-        print("Adecuado")
-    elif imc >= 25.0 and imc <= 29.9:
-        print("Sobrepeso")
-    elif imc >= 30.0 and imc <= 34.9:
-        print("Obesidad grado 1")
-    elif imc >= 35.0 and imc <= 39.9:
-        print("Obesidad grado 2")
-    else:
-        print("Obesidad grado 3")
 
 def validar_peso():
     while True:
